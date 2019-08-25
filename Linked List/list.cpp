@@ -1,5 +1,5 @@
 // Basic Single Linked list
-// Changed my code style to be consistent
+// Changed my code style to be consistent (https://google.github.io/styleguide/cppguide.html)
 #include <iostream>
 
 
@@ -33,15 +33,15 @@ class LinkedList {
   }
 
   size_t Size() {
-    return this->length_;
+    return length_;
   }
 
   bool IsEmpty() {
-    return this->head_ == nullptr;
+    return head_ == nullptr;
   }
 
   ListNode* SearchNode(int value) {
-    ListNode* node = this->head_;
+    ListNode* node = head_;
 
     while (node) {
       if (node->value == value) return node;
@@ -55,29 +55,29 @@ class LinkedList {
 
     if (IsEmpty()) {
       new_node = new ListNode;
-      this->head_ = new_node;
+      head_ = new_node;
     } else {
-      new_node = this->tail_;
+      new_node = tail_;
       new_node->next = new ListNode;
       new_node = new_node->next;
     }
 
     new_node->value = value;
     new_node->next = nullptr;
-    this->tail_ = new_node;
-    ++this->length_;
+    tail_ = new_node;
+    ++length_;
   }
 
   void PushFront(int value) {
     ListNode* new_node = new ListNode;
 
     if (IsEmpty())
-      this->tail_ = new_node;
+      tail_ = new_node;
     
     new_node->value = value;
-    new_node->next = this->head_;
-    this->head_ = new_node;
-    ++this->length_;
+    new_node->next = head_;
+    head_ = new_node;
+    ++length_;
   }
 
   // Inserting after given value
@@ -91,13 +91,13 @@ class LinkedList {
     new_node->value = value;
     new_node->next = node_before->next;
     node_before->next = new_node;
-    ++this->length_;
+    ++length_;
   }
 
   void CheckSize() {
     if (Size() == 1) {
-      ListNode* tmp = this->head_;
-      this->head_ = this->tail_ = nullptr;
+      ListNode* tmp = head_;
+      head_ = tail_ = nullptr;
     } else if (!Size()) {
       throw std::out_of_range("\nPopBack: empty list.");
     }
@@ -106,24 +106,24 @@ class LinkedList {
   // Could be 0(1) but need extra space..
   void PopBack() {
     CheckSize();
-    ListNode* node = this->head_;
-    ListNode* tmp = this->tail_;
+    ListNode* node = head_;
+    ListNode* tmp = tail_;
     node = SearchSpecificNode(node, tmp);
     
     node->next = nullptr;
-    this->tail_ = node;
+    tail_ = node;
 
     delete tmp;
-    --this->length_;
+    --length_;
   }
 
   void PopFront() {
     CheckSize();
-    ListNode* temp = this->head_;
-    this->head_ = this->head_->next;
+    ListNode* temp = head_;
+    head_ = head_->next;
 
     delete temp;
-    --this->length_;
+    --length_;
   }
 
   void Remove(int value) {
@@ -133,20 +133,20 @@ class LinkedList {
     if (!node_to_delete)
       throw std::runtime_error("\nRemove: value not found.");
 
-    if (node_to_delete == this->head_) {
+    if (node_to_delete == head_) {
       PopFront();
-    } else if (node_to_delete == this->tail_) {
+    } else if (node_to_delete == tail_) {
       PopBack();
     } else {
-      ListNode* node = SearchSpecificNode(this->head_, node_to_delete);
+      ListNode* node = SearchSpecificNode(head_, node_to_delete);
       node->next = node_to_delete->next;
       delete node_to_delete;
-      --this->length_;
+      --length_;
     }
   }
 
   void PrintList() {
-    ListNode* it = this->head_;
+    ListNode* it = head_;
     size_t i = 1;
 
     while (it) {
